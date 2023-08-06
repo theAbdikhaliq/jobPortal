@@ -10,7 +10,7 @@ exports.createPost = async (req, res) => {
 
 exports.getAllPosts = async (req, res) => {
   try {
-    const foundPosts = await posts.find({});
+    const foundPosts = await posts.find({}).populate("user");
     res.status(200).json({ foundPosts });
   } catch (error) {
     res.status(400).json({ error });

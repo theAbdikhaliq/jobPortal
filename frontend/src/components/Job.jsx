@@ -7,7 +7,7 @@ function Job() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/post/")
+      .get("http://localhost:8000/job/post")
       .then((res) => {
         setPosts(res.data.foundPosts);
       })

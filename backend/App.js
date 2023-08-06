@@ -14,7 +14,7 @@ require("./Connection");
 app.use(cors());
 app.use(express.json());
 app.use("/user", userRoute);
-app.use("/post", postRoute);
+app.use("/job", postRoute);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

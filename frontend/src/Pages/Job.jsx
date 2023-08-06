@@ -1,7 +1,31 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Job() {
+  const [post, setPost] = useState({
+    title: "",
+    description: "",
+    user: "",
+  });
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setPost({ ...post, [name]: value });
+  };
+
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    console.log(post);
+    try {
+      axios
+        .post("http://localhost:8000/job/post", post)
+        .then((res) => console.log(res.data.message))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <div className="bg-primary p-5">
@@ -20,27 +44,44 @@ function Job() {
             <input
               type="text"
               className="w-full p-1.5 rounded-md bg-[#f6f6f6]"
-              name=""
+              name="title"
+              value={post.title}
               id=""
               placeholder="Enter your job title"
+              onChange={handleOnChange}
             />
           </div>
 
-          {/* Email */}
+          <div className="mt-5 mb-3">
+            <p className="font-light mb-2 text-xs text-gray-400">User ID</p>
+            <input
+              type="text"
+              className="w-full p-1.5 rounded-md bg-[#f6f6f6]"
+              name="user"
+              value={post.user}
+              id=""
+              placeholder="Enter your UserID"
+              onChange={handleOnChange}
+            />
+          </div>
+
+          {/* Description */}
           <div>
             <p className="font-light text-xs text-gray-400 mb-3">
               Job Description
             </p>
             <textarea
               type="text"
-              name=""
+              name="description"
+              value={post.description}
               id=""
               placeholder="Enter job description"
               className="w-full p-1.5 rounded-md bg-[#f6f6f6] h-64"
+              onChange={handleOnChange}
             ></textarea>
           </div>
-
-          {/* Job Type */}
+          {/* 
+          Job Type
           <div className="flex justify-between mt-5 mb-3">
             <div>
               <p className="font-light text-xs text-gray-400 mb-3">Job Type</p>
@@ -62,7 +103,7 @@ function Job() {
                 </option>
               </select>
 
-              {/* Experience */}
+            Experience
             </div>
             <div>
               <p className="font-light text-xs text-gray-400 mb-3">
@@ -97,9 +138,12 @@ function Job() {
               <option>Remote</option>
             </select>
           </div>
-
+ */}
           <div className="flex justify-center">
-            <button className="px-10 py-3 mt-10  bg-black text-white rounded-md">
+            <button
+              className="px-10 py-3 mt-10  bg-black text-white rounded-md"
+              onClick={handleOnClick}
+            >
               Post Job
             </button>
           </div>

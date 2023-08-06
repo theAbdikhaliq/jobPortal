@@ -5,11 +5,13 @@ import { FaCalendarWeek, FaSignal, FaComputerMouse } from "react-icons/fa6";
 function JobCard({ post }) {
   return (
     <div className="w-[800px] bg-white shadow-md mb-5 px-4 py-2 rounded-md">
+      {console.log(post)}
       <div className="flex items-center justify-between">
         <div className="flex gap-5 items-center mb-2">
           <div className="rounded-full">
             <img
-              src={mailcamp}
+              src={`http://localhost:8000/${post.user.image}`}
+              width="100px"
               alt=""
               srcset=""
               className="w-16 rounded-full"
