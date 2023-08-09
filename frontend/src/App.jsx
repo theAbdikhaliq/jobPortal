@@ -12,6 +12,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { UserContext } from "./Context/UserContext";
+import JobList from "./Pages/JobList";
+import BlogCreate from "./Pages/BlogCreate";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -35,10 +37,18 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
-            <Route path="/single" element={<SinglePost />} />
+            <Route path="/single/:id" element={<SinglePost />} />
             <Route
               path="/post"
               element={loggedIn ? <Job /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/list"
+              element={loggedIn ? <JobList /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/createBlog"
+              element={loggedIn ? <BlogCreate /> : <Navigate to="/login" />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

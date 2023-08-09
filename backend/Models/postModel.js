@@ -9,6 +9,18 @@ const postSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    enum: ["Full-time", "Part-time", "Internship"],
+  },
+  experience: {
+    type: String,
+    enum: ["Junior", "Senior", "Expert"],
+  },
+  location: {
+    type: String,
+    enum: ["Onsite", "Remote"],
+  },
   user: {
     type: mongoose.Types.ObjectId,
     ref: "User",

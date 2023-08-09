@@ -43,6 +43,7 @@ function Login() {
           theme: "light",
         });
         // console.log(err.response.data);
+        setInputData({ email: "", password: "" });
       });
   };
   return (

@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../Controllers/postController");
+const upload = require("../upload/multer");
 
 router
   .route("/post")
-  .post(postController.createPost)
+  .post(upload.single("image"), postController.createPost)
   .get(postController.getAllPosts);
 router
   .route("/:id")

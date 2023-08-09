@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
 
 function Job() {
   const [post, setPost] = useState({
     title: "",
     description: "",
     user: "",
+    type: "",
+    experience: "",
+    location: "",
   });
 
   const handleOnChange = (e) => {
@@ -16,15 +21,49 @@ function Job() {
 
   const handleOnClick = (e) => {
     e.preventDefault();
-    console.log(post);
-    try {
-      axios
-        .post("http://localhost:8000/job/post", post)
-        .then((res) => console.log(res.data.message))
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
+    const token = localStorage.getItem("token");
+    const tokenDecoded = jwtDecode(token);
+    const user = tokenDecoded.id;
+    const updatedPost = {
+      ...post,
+      user: user,
+    };
+    axios
+      .post("http://localhost:8000/job/post", updatedPost)
+      .then((res) =>
+        toast.success(res.data.message, {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      )
+      .catch((e) =>
+        toast.error(res.data.message, {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      );
+    // console.log(updatedPost);
+    // // console.log(post);
+    // try {
+    //   axios
+    //     .post("http://localhost:8000/job/post", post)
+    //     .then((res) => console.log(res.data.message))
+    //     .catch((err) => console.log(err));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   return (
     <div>
@@ -38,7 +77,7 @@ function Job() {
             The following is required and will be shared with opeepi
           </p>
 
-          {/* Name */}
+          {/* Title */}
           <div className="mt-5 mb-3">
             <p className="font-light mb-2 text-xs text-gray-400">Job Title</p>
             <input
@@ -52,7 +91,7 @@ function Job() {
             />
           </div>
 
-          <div className="mt-5 mb-3">
+          {/* <div className="mt-5 mb-3">
             <p className="font-light mb-2 text-xs text-gray-400">User ID</p>
             <input
               type="text"
@@ -63,7 +102,7 @@ function Job() {
               placeholder="Enter your UserID"
               onChange={handleOnChange}
             />
-          </div>
+          </div> */}
 
           {/* Description */}
           <div>
@@ -80,30 +119,41 @@ function Job() {
               onChange={handleOnChange}
             ></textarea>
           </div>
-          {/* 
-          Job Type
+
+          {/* Job Type */}
           <div className="flex justify-between mt-5 mb-3">
             <div>
               <p className="font-light text-xs text-gray-400 mb-3">Job Type</p>
               <select
                 className="w-56 p-1.5 rounded-md bg-[#f6f6f6]"
                 placeholder="Enter job type"
+                name="type"
+                onChange={handleOnChange}
               >
-                <option value="" disabled selected>
+                <option value={post.type} disabled selected>
                   Select your option
                 </option>
-                <option className="w-56 p-1.5 rounded-md bg-[#f6f6f6]">
+                <option
+                  className="w-56 p-1.5 rounded-md bg-[#f6f6f6]"
+                  value={"Full-time"}
+                >
                   Full-Time
                 </option>
-                <option className="w-56 p-1.5 rounded-md bg-[#f6f6f6]">
+                <option
+                  className="w-56 p-1.5 rounded-md bg-[#f6f6f6]"
+                  value={"Part-time"}
+                >
                   Part-Time
                 </option>
-                <option className="w-56 p-1.5 rounded-md bg-[#f6f6f6]">
+                <option
+                  className="w-56 p-1.5 rounded-md bg-[#f6f6f6]"
+                  value={"Internship"}
+                >
                   Internship
                 </option>
               </select>
 
-            Experience
+              {/* Experience */}
             </div>
             <div>
               <p className="font-light text-xs text-gray-400 mb-3">
@@ -112,13 +162,15 @@ function Job() {
               <select
                 className="w-56 p-1.5 rounded-md bg-[#f6f6f6]"
                 placeholder="Enter job experience"
+                onChange={handleOnChange}
+                name="experience"
               >
-                <option value="" disabled selected>
+                <option value={post.experience} disabled selected>
                   Select your option
                 </option>
-                <option>Junior</option>
-                <option>Senior</option>
-                <option>Expert</option>
+                <option value={"Junior"}>Junior</option>
+                <option value={"Senior"}>Senior</option>
+                <option value={"Expert"}>Expert</option>
               </select>
             </div>
           </div>
@@ -130,15 +182,17 @@ function Job() {
             <select
               type="password"
               className="w-full p-1.5 rounded-md bg-[#f6f6f6]"
+              onChange={handleOnChange}
+              name="location"
             >
-              <option value="" disabled selected>
+              <option value={post.location} disabled selected>
                 Select your option
               </option>
-              <option>Onsite</option>
-              <option>Remote</option>
+              <option value="Onsite">Onsite</option>
+              <option value="Remote">Remote</option>
             </select>
           </div>
- */}
+
           <div className="flex justify-center">
             <button
               className="px-10 py-3 mt-10  bg-black text-white rounded-md"

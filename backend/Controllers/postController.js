@@ -22,9 +22,6 @@ exports.getOnePost = async (req, res) => {
     const foundPost = await posts
       .findOne({ _id: req.params.id })
       .populate("user");
-    // this didn't work for me
-    // const { id } = req.params;
-    // const foundPost = await posts.findOneById(id);
     if (!foundPost) {
       return res.status(400).json({ message: "Post not found" });
     }

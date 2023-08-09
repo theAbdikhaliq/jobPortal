@@ -55,16 +55,18 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.deleteOneUser = async (req, res) => {
+exports.getOneUser = async (req, res) => {
   try {
-    const foundUser = await users.findOne({ email: req.body.email });
-    if (!foundUser) {
-      return res.status(400).json({ message: "User is not registered" });
-    }
-    await users.deleteOne({ email: req.body.email });
-    res.status(200).json({ message: "User deleted" });
-  } catch (error) {
-    res.status(200).json({ error });
+    const { id } = req.params;
+    const foundUser = await users.findById(id);
+    const foundUserProfile = {
+      id: foundUser._id,
+      name: foundUser.name,
+      image: foundUser.image,
+    };
+    res.status(200).json({ message: foundUserProfile });
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -78,4 +80,17 @@ exports.updateOneUser = async (req, res) => {
     { password: hashedPassword }
   );
   res.status(200).json({ message: "Successfully update" });
+};
+
+exports.deleteOneUser = async (req, res) => {
+  try {
+    const foundUser = await users.findOne({ email: req.body.email });
+    if (!foundUser) {
+      return res.status(400).json({ message: "User is not registered" });
+    }
+    await users.deleteOne({ email: req.body.email });
+    res.status(200).json({ message: "User deleted" });
+  } catch (error) {
+    res.status(200).json({ error });
+  }
 };

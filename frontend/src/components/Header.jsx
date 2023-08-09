@@ -1,14 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import mailcamp from "../assets/mailchimp.jpeg";
+import mailchimp from "../assets/mailchimp.jpeg";
 import { UserContext } from "../Context/UserContext";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 function Header() {
   const { loggedIn, setLoggedIn } = useContext(UserContext);
+  const [profile, setProfile] = useState();
   const handleOnLogOut = () => {
     setLoggedIn(false);
     localStorage.removeItem("token");
+    window.location.reload();
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedUser = jwt_decode(token);
+      axios
+        .get(`http://localhost:8000/user/${decodedUser.id}`)
+        .then((res) => setProfile(res.data.message.image))
+        .catch((err) => console.log(err));
+    }
+  });
+
   return (
     <div className="flex justify-between items-center mx-32 my-5">
       <div className="logo">
@@ -20,7 +36,7 @@ function Header() {
         <div className="flex gap-5 items-center">
           <div className="mx-auto">
             <img
-              src={mailcamp}
+              src={profile != null && `http://localhost:8000/${profile}`}
               alt=""
               srcset=""
               className="w-16 rounded-full"

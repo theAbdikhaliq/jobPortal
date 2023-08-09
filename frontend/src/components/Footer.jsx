@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="bg-secondary mt-32 text-white rounded-lg">
+    <div className="bg-secondary text-white rounded-lg">
       <div className="text-center p-20">
         <h1 className="text-3xl font-bold">
           Explore a <br /> Job Now! ✨
