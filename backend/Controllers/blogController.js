@@ -1,18 +1,27 @@
 const blogPost = require("../Models/blogPostModel");
 
 // getAll
-exports.getAllPosts = (req, res) => {
-  res.status(200).json({ blogs: blogs });
+exports.getAllPosts = async (req, res) => {
+  try {
+    const foundBlogs = await blogPost.find({}).populate("user");
+    res.status(200).json({ message: foundBlogs });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // getOne
-exports.getOnePost = (req, res) => {
-  const id = req.params.id;
-  const blog = blogs.find((blog) => id == blog.id);
-  if (!blog) {
-    res.status(404).json({ alert: `Blog with id:${id} is not found.` });
+exports.getOnePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const foundBlog = await blogPost.findById(id).populate("user");
+    if (!foundBlog) {
+      res.status(400).json({ message: "Blog not found" });
+    }
+    res.status(200).json({ message: foundBlog });
+  } catch (error) {
+    console.log(error);
   }
-  res.status(200).json({ blog: blog });
 };
 
 // create blog

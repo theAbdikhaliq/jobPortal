@@ -3,16 +3,12 @@ const router = express.Router();
 const blogController = require("../Controllers/blogController");
 const upload = require("../upload/multer");
 
-router.post("/", upload.single("image"), blogController.createPost);
+router.post("/create", upload.single("image"), blogController.createPost);
 
-// router
-//   .route("/")
+router.route("/").get(blogController.getAllPosts);
 //   .post(upload.single("image"), blogController.createPost)
-//   .get("/", blogController.getAllPosts);
 
-// router
-//   .route("/:id")
-//   .get(blogController.getOnePost)
+router.route("/:id").get(blogController.getOnePost);
 //   .put(blogController.updatePost)
 //   .delete(blogController.deletePost);
 

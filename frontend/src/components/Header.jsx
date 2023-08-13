@@ -28,9 +28,17 @@ function Header() {
   return (
     <div className="flex justify-between items-center mx-32 my-5">
       <div className="logo">
-        <Link to="/" className="font-bold text-2xl">
-          WP-Jobs
-        </Link>
+        <div>
+          <Link to="/" className="font-bold text-2xl">
+            WP-Jobs
+          </Link>
+          <Link to="/jobs" className="font-bold ml-8">
+            Jobs
+          </Link>{" "}
+          <Link to="/blogs" className="font-bold ml-1">
+            Blogs
+          </Link>
+        </div>
       </div>
       {loggedIn == true ? (
         <div className="flex gap-5 items-center">

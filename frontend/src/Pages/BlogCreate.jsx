@@ -1,38 +1,59 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function BlogCreate() {
-  const [image, setImage] = useState();
-  const [blog, setBlog] = useState({
-    // these keys should match you model keys
-    title: "",
-    description: "",
-    user: "lklj;",
-    category: "",
-  });
-
-  const handleOnChange = (e) => {
-    const { name, value, type, files } = e.target;
-    if (type === "file") {
-      setImage({ ...user, [name]: files[0] });
-    } else {
-      setBlog({ ...blog, [name]: value });
-    }
-  };
+  const [blog, setBlog] = useState({});
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
+    const tokenDecoded = jwtDecode(token);
+    const user = tokenDecoded.id;
+    const updatedBlog = {
+      ...blog,
+      user: user,
+    };
     const formData = new FormData();
     formData.append("title", blog.title);
     formData.append("description", blog.description);
     formData.append("category", blog.category);
-    formData.append("user", blog.user);
-    formData.append("image", image);
+    formData.append("image", blog.image);
+    formData.append("user", updatedBlog.user);
+
+    // we cannot console log the formData so i got this alternative
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key + ": " + value);
+    // }
+
     axios
-      .post("http://localhost:8000/blog/", formData)
-      .then((res) => console.log(res.data.message))
-      .catch((err) => console.log(err.response));
+      .post("http://localhost:8000/blog/create", formData)
+      .then((res) =>
+        toast.success(res.data.message, {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      )
+      .catch((e) =>
+        toast.error(e.response.data.message, {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      );
   };
   return (
     <div className="bg-primary p-5">
@@ -47,13 +68,13 @@ function BlogCreate() {
         <div className="mt-5 mb-3">
           <p className="font-light mb-2 text-xs text-gray-400">Title</p>
           <input
-            value={blog.title}
+            // value={blog.title}
             type="text"
             className="w-full p-1.5 rounded-md bg-[#f6f6f6]"
             name="title"
             // id=""
             placeholder="Enter blog title here..."
-            onChange={handleOnChange}
+            onChange={(e) => setBlog({ ...blog, title: e.target.value })}
           />
         </div>
         <div className="mt-5 mb-3">
@@ -64,20 +85,22 @@ function BlogCreate() {
             <textarea
               type="text"
               name="description"
-              value={blog.description}
+              // value={blog.description}
               id=""
               placeholder="Enter blog description here..."
               className="w-full p-1.5 rounded-md bg-[#f6f6f6] h-64"
-              onChange={handleOnChange}
+              onChange={(e) =>
+                setBlog({ ...blog, description: e.target.value })
+              }
             ></textarea>
           </div>
           <div>
             <p className="font-light text-xs text-gray-400 mb-3">Category</p>
             <select
               name="category"
-              value={blog.category}
+              // value={blog.category}
               className="w-full p-1.5 rounded-md bg-[#f6f6f6]"
-              onChange={handleOnChange}
+              onChange={(e) => setBlog({ ...blog, category: e.target.value })}
             >
               <option value="" disabled selected>
                 Select category
@@ -145,7 +168,7 @@ function BlogCreate() {
                 // class="hidden"
                 name="image"
                 type="file"
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={(e) => setBlog({ ...blog, image: e.target.files[0] })}
               />
             </label>
           </div>

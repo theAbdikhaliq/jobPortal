@@ -15,10 +15,10 @@ const postSchema = mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
+    required: false,
   },
   user: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     ref: "User",
   },
 });

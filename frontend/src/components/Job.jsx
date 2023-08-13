@@ -32,7 +32,7 @@ function Job() {
             <JobCard post={post} />
           ))}
           <p className="text-center">
-            <Link to="/list" className="hover:text-blue-600">
+            <Link to="/jobs" className="hover:text-blue-600">
               More jobs {">"}
             </Link>
           </p>

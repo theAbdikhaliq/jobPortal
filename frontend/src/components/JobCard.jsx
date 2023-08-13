@@ -10,7 +10,7 @@ function JobCard({ post }) {
         "Loading..."
       ) : (
         <Link to={`single/${post._id}`}>
-          <div className="w-[600px] bg-white shadow-md hover:shadow-lg mb-5 px-4 py-2 rounded-md">
+          <div className="w-[600px] bg-white shadow-md hover:shadow-lg mb-4 px-4 py-2 rounded-md">
             {/* {console.log(post.user.image)} */}
             <div className="flex items-center justify-between">
               <div className="flex gap-5 items-center mb-2">
