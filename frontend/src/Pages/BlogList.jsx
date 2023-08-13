@@ -14,7 +14,6 @@ function BlogList() {
       .get("http://localhost:8000/blog/")
       .then((res) => {
         setBlogs(res.data.message);
-        console.log(blogs);
       })
       .catch((err) => {
         console.error(err);
@@ -52,7 +51,13 @@ function BlogList() {
 
   return (
     <div className="mx-20">
-      <div className="flex my-44">
+      <div className="text-center text-4xl">
+        Have an Idea?{" "}
+        <Link to="/createBlog" className="text-blue-600">
+          Write blog
+        </Link>
+      </div>
+      <div className="flex my-36">
         <div className="w-[300%]">
           <img className="w-[1500px]" src={track} alt="" />
         </div>
