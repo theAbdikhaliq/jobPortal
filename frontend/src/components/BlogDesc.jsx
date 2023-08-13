@@ -138,10 +138,7 @@ function BlogDesc({ blog, allComments }) {
             <div className="w-12">
               <img
                 className="rounded-full "
-                src={
-                  profile != null &&
-                  `http://localhost:8000/${commentX.user.image}`
-                }
+                src={`http://localhost:8000/${commentX.user.image}`}
               />
             </div>
             <div className="flex items-end flex-col">

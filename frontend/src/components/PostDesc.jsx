@@ -20,9 +20,11 @@ function PostDesc({ post }) {
             <p>{post.location}</p>
           </div>
         </div>
-        <button className="px-10 py-3 my-10 bg-black text-white rounded-md">
-          Apply Job
-        </button>
+        <a href={post.link} target="_blank">
+          <button className="px-10 py-3 my-10 bg-black text-white rounded-md">
+            Apply Job
+          </button>
+        </a>
 
         <hr class="border-b border-0 border-[#EDED] my-5 " />
         <div>
@@ -31,9 +33,9 @@ function PostDesc({ post }) {
             <p className="font-light text-xs">{post.description}</p>
           </div>
         </div>
-        <button className="px-8 py-2 mt-10 bg-black text-white rounded-md">
+        {/* <button className="px-8 py-2 mt-10 bg-black text-white rounded-md">
           Apply Job
-        </button>
+        </button> */}
       </div>
     </div>
   );

@@ -44,16 +44,16 @@ function App() {
             <Route path="/blogs/singleBlog/:id" element={<SingleBlog />} />
             <Route path="/blogs" element={<BlogList />} />
             <Route
-              path="/post"
-              element={loggedIn ? <Job /> : <Navigate to="/login" />}
+              path="/createBlog"
+              element={loggedIn ? <BlogCreate /> : <Navigate to="/login" />}
             />
             <Route
               path="/jobs"
               element={loggedIn ? <JobList /> : <Navigate to="/login" />}
             />
             <Route
-              path="/createBlog"
-              element={loggedIn ? <BlogCreate /> : <Navigate to="/login" />}
+              path="/createJob"
+              element={loggedIn ? <Job /> : <Navigate to="/login" />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

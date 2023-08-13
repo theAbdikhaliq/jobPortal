@@ -25,21 +25,13 @@ function Blog() {
       })
       .catch((err) => console.log(err));
   });
-
+  console.log(blog);
   return (
     <div>
       <Link to="/" className="font-bold my-8 mx-80">
         ← Back
       </Link>
       <div className="flex items-start justify-around mx-48 mt-24 gap-3">
-        {/* {allComments.map((commentX) =>
-          blog.user && commentX.user ? (
-            <BlogDesc blog={blog} commentX={commentX} />
-          ) : (
-            "Loading..."
-          )
-        )} */}
-        {/* {allComments.map((commentXX) => <BlogDesc commentX={commentX} />)} */}
         {blog.user && allComments[0].user ? (
           <BlogDesc blog={blog} allComments={allComments} />
         ) : (

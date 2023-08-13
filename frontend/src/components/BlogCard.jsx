@@ -10,7 +10,7 @@ function BlogCard({ blog }) {
         "Loading..."
       ) : (
         <Link to={`singleBlog/${blog._id}`}>
-          <div className="w-[300px] bg-white shadow-md hover:shadow-lg mb-4  rounded-md">
+          <div className="w-[290px] bg-white shadow-md hover:shadow-lg mb-4  rounded-md">
             {/* {console.log(post.user.image)} */}
             <div className="">
               <img

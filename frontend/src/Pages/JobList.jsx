@@ -17,12 +17,10 @@ function JobList() {
   });
   return (
     <div>
-      <div className="w-full bg-gray-900 h-20 flex items-end justify-center gap-x-2">
-        <Link to="/jobs" className="text-white">
-          Jobs
-        </Link>{" "}
-        <Link to="blogs" className="text-white">
-          Blogs
+      <div className="text-center text-4xl">
+        Have a job??{" "}
+        <Link to="/createJob" className="text-blue-600">
+          Post now
         </Link>
       </div>
       <div className="flex flex-wrap gap-x-4 mx-20">

@@ -129,7 +129,7 @@ function BlogList() {
           Politics
         </button>
       </div>
-      <div className="flex flex-wrap gap-x-4">
+      <div className="flex flex-wrap gap-x-6">
         {filteredBlogs.map((blog) => (
           <BlogCard blog={blog} />
         ))}

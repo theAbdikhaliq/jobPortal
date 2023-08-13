@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 function Job() {
   const [post, setPost] = useState({
     title: "",
+    link: "",
     description: "",
     user: "",
     type: "",
@@ -54,16 +55,6 @@ function Job() {
           theme: "light",
         })
       );
-    // console.log(updatedPost);
-    // // console.log(post);
-    // try {
-    //   axios
-    //     .post("http://localhost:8000/job/post", post)
-    //     .then((res) => console.log(res.data.message))
-    //     .catch((err) => console.log(err));
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
   return (
     <div>
@@ -91,18 +82,19 @@ function Job() {
             />
           </div>
 
-          {/* <div className="mt-5 mb-3">
-            <p className="font-light mb-2 text-xs text-gray-400">User ID</p>
+          {/* Link */}
+          <div className="mt-5 mb-3">
+            <p className="font-light mb-2 text-xs text-gray-400">Job Link</p>
             <input
               type="text"
               className="w-full p-1.5 rounded-md bg-[#f6f6f6]"
-              name="user"
-              value={post.user}
+              name="link"
+              value={post.link}
               id=""
-              placeholder="Enter your UserID"
+              placeholder="Enter your job link to apply"
               onChange={handleOnChange}
             />
-          </div> */}
+          </div>
 
           {/* Description */}
           <div>
