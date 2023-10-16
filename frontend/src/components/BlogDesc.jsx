@@ -7,10 +7,9 @@ import { toast } from "react-toastify";
 import { FaCalendarWeek, FaSignal, FaComputerMouse } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 
-function BlogDesc({ blog, allComments }) {
+function BlogDesc({ blog, allComments, id }) {
   // console.log(blog);
   // console.log(allComments);
-
   const [profile, setProfile] = useState();
   const [comment, setComment] = useState({ body: "" });
 
@@ -31,9 +30,10 @@ function BlogDesc({ blog, allComments }) {
     if (comment.body != "") {
       const updatedComment = {
         ...comment,
-        blog: "64d72947dc0d61be56623ce3",
+        blog: id,
         user: user,
       };
+      console.log(updatedComment);
       axios
         .post("http://localhost:8000/comment/", updatedComment)
         .then((res) =>
